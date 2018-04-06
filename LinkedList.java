@@ -19,6 +19,20 @@ public class LinkedList<E> {
         }
     }
 
+    //NEED TO DO
+    //check if cur is null or root not init or if cur is only list item.. etc
+    public void removeCurrent() {
+        Node prevNode = cur.previous;
+        Node nextNode = cur.next;
+        prevNode.next = nextNode;
+        cur = prevNode;
+    }
+
+    public E getCurrent() {
+        E result = (E) cur.data;
+        return result;
+    }
+
     public String toString() {
         String result = "";
         Node current = root;

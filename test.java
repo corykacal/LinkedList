@@ -7,6 +7,7 @@ public class test {
         list.add(5);
         list.add(2);
 
+        list.removeCurrent();
         System.out.println(list);
     }
 }
