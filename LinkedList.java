@@ -1,6 +1,8 @@
 public class LinkedList<E> {
 
+    //change to tail
     private Node root;
+    //change to head or make a new head node instance
     private Node cur;
 
     public LinkedList() {
@@ -33,6 +35,41 @@ public class LinkedList<E> {
         return result;
     }
 
+
+    public void remove(E data) {
+        Node temp = cur;
+        //check if find is null
+        Node target = find(data);
+        cur = target;
+        removeCurrent();
+        cur = temp;
+    }
+
+    public boolean contains(E data) {
+        Node target = find(data);
+        if(target==null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private Node find(E data) {
+        Node result = null;
+        Node current = root;
+        boolean found = false;
+        do {
+            if(current.data==data) {
+                result = current;
+                found = true;
+            } else {
+                current = current.next;
+            }
+        } while(current!=root && !found);
+        return result;
+    }
+
+    //need to make standard and more readable
     public String toString() {
         String result = "";
         Node current = root;
@@ -42,9 +79,6 @@ public class LinkedList<E> {
         } while(current!=root);
         return result;
     }
-
-
-
 
     private class Node<E> {
 
