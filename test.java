@@ -14,8 +14,15 @@ public class test {
 
         System.out.println(list);
 
-       list.remove(5);
+       list.remove(4);
         
+        System.out.println(list+"\n");
+
+
+        list = new LinkedList<Integer>();
+        list.add(2);
+        System.out.println(list);
+        list.removeCurrent();
         System.out.println(list);
     }
 }

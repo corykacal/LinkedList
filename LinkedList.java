@@ -1,48 +1,64 @@
 public class LinkedList<E> {
 
-    //change to tail
-    private Node root;
-    //change to head or make a new head node instance
-    private Node cur;
+    private Node head;
+    private Node tail;
+
+    private int size;
 
     public LinkedList() {
-        this.root = null;
-        this.cur = null;
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
     }
 
     public void add(E data) {
-        if(root==null) {
-            this.root = new Node(null,data,null);
-            this.cur = root;
+        if(head==null) {
+            this.head = new Node(tail,data,tail);
+            this.tail = head;
         } else {
-            Node nextNode = new Node(cur,data,root);
-            cur.next = nextNode;
-            cur = nextNode;
+            //adding to end (Head, data, data, Tail, data->Head)
+            Node nextNode = new Node(tail,data,head);
+            //tail now prints to new tail
+            tail.next = nextNode;
+            //new tail is added node
+            tail = nextNode;
         }
+        size++;
     }
 
     //NEED TO DO
-    //check if cur is null or root not init or if cur is only list item.. etc
+    //more elegant solution
     public void removeCurrent() {
-        Node prevNode = cur.previous;
-        Node nextNode = cur.next;
-        prevNode.next = nextNode;
-        cur = prevNode;
+        if(head!=null) {
+            if(size==1) {
+                head = null;
+                tail = null;
+            } else {
+                Node prevNode = tail.previous;
+                Node nextNode = tail.next;
+                prevNode.next = nextNode;
+                tail = prevNode;
+            }
+        }
     }
 
     public E getCurrent() {
-        E result = (E) cur.data;
+        E result = (E) tail.data;
         return result;
     }
 
 
-    public void remove(E data) {
-        Node temp = cur;
-        //check if find is null
+    public boolean remove(E data) {
         Node target = find(data);
-        cur = target;
-        removeCurrent();
-        cur = temp;
+        if(target==null) {
+            return false;
+        } else {
+            Node temp = tail;
+            tail = target;
+            removeCurrent();
+            tail = temp;
+            return true;
+        }
     }
 
     public boolean contains(E data) {
@@ -55,8 +71,11 @@ public class LinkedList<E> {
     }
 
     private Node find(E data) {
+        if(head==null) {
+            return null;
+        }
         Node result = null;
-        Node current = root;
+        Node current = head;
         boolean found = false;
         do {
             if(current.data==data) {
@@ -65,18 +84,22 @@ public class LinkedList<E> {
             } else {
                 current = current.next;
             }
-        } while(current!=root && !found);
+        } while(current!=head && !found);
         return result;
+    }
+
+    public int size() {
+        return this.size;
     }
 
     //need to make standard and more readable
     public String toString() {
         String result = "";
-        Node current = root;
+        Node current = head;
         do {
             result+= current.getData() + ", ";
             current = current.next;
-        } while(current!=root);
+        } while(current!=head);
         return result;
     }
 
