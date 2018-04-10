@@ -11,10 +11,14 @@ public class LinkedList<E> {
         this.size = 0;
     }
 
+    //fix previous assignment and weird java pointer magic
     public void add(E data) {
         if(head==null) {
-            this.head = new Node(tail,data,tail);
-            this.tail = head;
+            this.head = new Node(null,data,null);
+            tail = head;
+            this.head.next = tail;
+            this.head.previous = tail;
+            System.out.println(head.next);
         } else {
             //adding to end (Head, data, data, Tail, data->Head)
             Node nextNode = new Node(tail,data,head);
@@ -53,10 +57,16 @@ public class LinkedList<E> {
         if(target==null) {
             return false;
         } else {
+                Node prevNode = target.previous;
+                Node nextNode = target.next;
+                prevNode.next = nextNode;
+                tail = prevNode;
+                /*
             Node temp = tail;
             tail = target;
             removeCurrent();
             tail = temp;
+            */
             return true;
         }
     }

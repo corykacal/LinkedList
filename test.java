@@ -5,16 +5,11 @@ public class test {
 
         list.add(4);
         list.add(5);
-        list.add(2);
-        list.add(1);
         list.add(6);
-        list.add(9);
-        list.add(94);
-        list.add(33);
-
+        list.add(7);
         System.out.println(list);
 
-       list.remove(4);
+       list.remove(7);
         
         System.out.println(list+"\n");
 
